@@ -80,17 +80,21 @@ def courses_data(C_ID, connectServer):
     
 def Session(connectServer):
     cur = connectServer.cursor()
-    cur.Execute("SELECT * FROM Course_Session")
+    cur.execute("SELECT * FROM Course_Session")
     results = cur.fetchall()
     
     session_list = []
     for result in results:
         session = Course_Session(Session_ID=result[0], Course_ID=result[1], Session_Day=result[2], Session_RTime=result[3], Session_Time=result[4], Classroom=result[5])
+    session_list.append(session)
+    
+    cur.close()
+    return session_list 
 
 def enrolledtable_data(S_ID, connectServer):
     cur = connectServer.cursor()
-    cur.execute("SELECT * FROM Enrolledtable WHERE 'S_ID'=%s;",(S_ID,))
-    results = cur.fetchone()
+    cur.execute("SELECT * FROM Enrolledtable WHERE S_ID=%s;",(S_ID,))
+    results = cur.fetchall()
     
     enrollment_list = []
     for result in results:
