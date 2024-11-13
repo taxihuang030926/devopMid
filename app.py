@@ -1,7 +1,21 @@
 from flask import Flask, request, jsonify, render_template, url_for, redirect, session
+from flask import request
+import MySQLdb
+import sys
 app = Flask(__name__)
+
+db = MySQLdb.connect(host="localhost", user="root", passwd="root", db="student")
+
 username = ""
 password = ""
+
+def login1(username, password):
+    cursor = db.cursor()
+    query = "SELECT * FROM users WHERE username = %s AND password = %s"
+    cursor.execute(query, (username, password))
+    result = cursor.fetchone()
+    cursor.close()
+    return result is not None
 
 @app.route('/')
 def index():
