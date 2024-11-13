@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, render_template, url_for, redirect, session
-import login
 
 app = Flask(__name__)
 username = ""
