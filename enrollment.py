@@ -1,4 +1,3 @@
-from flask import Flask, request, render_template, redirect
 from init import student_data, courses_data, enrolledtable_data, Session
 
 
@@ -88,6 +87,3 @@ def add_course(S_ID,Course_ID):
     elif check_course_name_conflict(Course_ID, S_ID):
         wrong = '已選課表中已有同名課程'
         return False, wrong
-    
-    else:
-        

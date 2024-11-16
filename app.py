@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template, url_for, redirect, session
+import mysql.connector as mc  # type: ignore
 import login
 
 app = Flask(__name__)
