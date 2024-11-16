@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify, render_template, url_for, redirect, session
-from flask import request
+import mysql.connector as mc  # type: ignore
 import MySQLdb
 import sys
+
 app = Flask(__name__)
 
 db = MySQLdb.connect(host="localhost", user="root", passwd="root", db="student")

@@ -37,8 +37,8 @@ class EnrolledTable:
                  ,S61,S62,S63,S64,S65,S66,S67,S68,S69,S70
                  ):
         self.S_ID = S_ID
-        self.S1 = S1;     self.S2 = S2;   self.S3 = S3;   self.S4 = S4; self.S5 = S5
-        self.S6 = S6;     self.S7 = S7;   self.S8 = S8;   self.S9 = S9; self.S10 = S10
+        self.S1 =   S1; self.S2 =   S2; self.S3 =   S3; self.S4 =   S4; self.S5 =   S5
+        self.S6 =   S6; self.S7 =   S7; self.S8 =   S8; self.S9 =   S9; self.S10 = S10
         self.S11 = S11; self.S12 = S12; self.S13 = S13; self.S14 = S14; self.S15 = S15
         self.S16 = S16; self.S17 = S17; self.S18 = S18; self.S19 = S19; self.S20 = S20
         self.S21 = S21; self.S22 = S22; self.S23 = S23; self.S24 = S24; self.S25 = S25
