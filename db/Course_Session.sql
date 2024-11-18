@@ -5,8 +5,7 @@ CREATE TABLE Course_Session (
     Session_RTime INT,
     Session_Time INT,
     Classroom VARCHAR(20),
-    foreign key(Course_ID) references Courses(Course_ID),
-    foreign key(Classroom) references Classroom(ClassroomName)
+    foreign key(Course_ID) references Courses(Course_ID)
 );
 
 insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom) values("1312-1", 1312, "Monday", 3, 3, "資電402");
