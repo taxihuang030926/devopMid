@@ -1,49 +1,49 @@
-from flask import Flask, request, jsonify, render_template, url_for, redirect, session
-import mysql.connector as mc  # type: ignore
+from flask import Flask, request, jsonify, render_template, url_for, redirect, session, flash
+import mysql
 import MySQLdb
+import mysql.connector as mc 
+import Search, Enrollment, Drop
 import sys
 
 app = Flask(__name__)
+app.secret_key = b'5aBMRhcy'
 
-db = MySQLdb.connect(host="localhost", user="root", passwd="root", db="student")
+db = mc.connect(host="0.0.0.0", port=3306, user="admint", password="12341234", database="devopMid")
+cursor = db.cursor()
 
 username = ""
 password = ""
 
-def login1(username, password):
-    cursor = db.cursor()
-    query = "SELECT * FROM users WHERE username = %s AND password = %s"
-    cursor.execute(query, (username, password))
-    result = cursor.fetchone()
-    cursor.close()
-    return result is not None
-
+# login 
 @app.route('/')
 def index():
     if 'username' in session:
-        return redirect(url_for('dashboard'))
-    return render_template('index.html')
+        return render_template('dashboard.html')
+    else:
+        return render_template('index.html')
 
-@app.route('/login', methods=['GET','POST'])
+@app.route('/', methods=['POST'])
 def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        
-        if login1(username, password):
-            session['username'] = username
-            flash('登入成功', 'success')
-            return redirect(url_for('dashboard'))
-        else:
-            flash('登入失敗，請檢查您的 NID 和密碼', 'danger')
-            return redirect(url_for('login'))
-    return render_template('login.html')
+    username = request.form['username']
+    password = request.form['password']
+    if(Search.searchUser(db, username, password)):
+        session['username'] = username
+        return redirect(url_for('dashboard'))
+    else:
+        flash('Invalid username or password')
+        return redirect(url_for('login'))
 
-@app.route('/api', methods=['POST'])
-def api():
-    data = request.get_json()
-    print(data)
-    return jsonify(data)
+# dashboard 
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html', username=username)
+
+@app.route('/dashboard', methods=['POST'])
+def logout():
+    username = ""
+    password = ""
+    session.clear()
+    return redirect(url_for('/'))
 
 
 if __name__ == '__main__':
