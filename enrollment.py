@@ -1,4 +1,3 @@
-from flask import Flask, request, render_template, redirect
 from init import student_data, courses_data, enrolledtable_data, Session
 
 
@@ -111,9 +110,12 @@ def add_course(S_ID,Course_ID):
     elif check_course_name_conflict(Course_ID, S_ID):
         wrong = '已選課表中已有同名課程'
         return False, wrong
+<<<<<<< HEAD
+=======
     
     else:
         update_enrollment(S_ID, Course_ID)
         update_tl_Credit(S_ID, Course_ID)
         
         return True,"加選成功"
+>>>>>>> 9e6ed6fe643dfcf6170a7f79fa95d50fe2ae277b

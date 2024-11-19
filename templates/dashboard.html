@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/enrolledtable.css">
+</head>
+<body>
+    <h1>選課系統</h1>
+    <h2>歡迎回來，{{ usernameKept }}</h2>
+    <a href="{{ url_for('logout') }}">登出</a>
+    <div>
+        <form action="{{ url_for('handle_course') }}" method="post">
+            <label for="course_id">課程代碼: </label>
+            <input type="text" id="course_id" name="course_id" required>
+            <button type="submit">加/退選</button>
+        </form>
+    </div>
+    <div class="container">
+        <table>
+            <tr>
+                <td></td>
+                <td>Mon</td>
+                <td>Tue</td>
+                <td>Wed</td>
+                <td>Thu</td>
+                <td>Fri</td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    1 <br>
+                    08:10<br>
+                    |<br>
+                    09:00<br>
+                    <br>
+                </td>
+                <td id="s1"> </td>
+                <td id="s15"> </td>
+                <td id="s29"> </td>
+                <td id="s43"> </td>
+                <td id="s57"> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    2<br>
+                    09:10<br>
+                    |<br>
+                    10:00<br>
+                    <br>
+                </td>
+                <td id="s2"> </td>
+                <td id="s16"> </td>
+                <td id="s30"> </td>
+                <td id="s44"> </td>
+                <td id="s58"> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    3<br>
+                    10:10<br>
+                    |<br>
+                    11:00<br>
+                    <br>
+                </td>
+                <td id="s3"> </td>
+                <td id="s17"> </td>
+                <td id="s31"> </td>
+                <td id="s45"> </td>
+                <td id="s59"> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    4<br>
+                    11:10 <br>
+                    |<br>
+                    12:00<br>
+                    <br>
+                </td>
+                <td id="s4"> </td>
+                <td id="s18"> </td>
+                <td id="s32"> </td>
+                <td id="s46"> </td>
+                <td id="s60"> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    5<br>
+                    12:10<br>
+                    |<br>
+                    13:00<br>
+                    <br>
+                </td>
+                <td id="s5"> </td>
+                <td id="s19"> </td>
+                <td id="s33"> </td>
+                <td id="s47"> </td>
+                <td id="s61"> </td>
+            </tr>
+            <tr >
+                <td>
+                    <br>
+                    6<br>
+                    13:10<br>
+                    |<br>
+                    14:00<br>
+                    <br>
+                </td>
+                <td id="s6"> </td>
+                <td id="s20"> </td>
+                <td id="s34"> </td>
+                <td id="s48"> </td>
+                <td id="s62"> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    7<br>
+                    14:10<br>
+                    |<br>
+                    15:00<br>
+                    <br>
+                </td>
+                <td id="s7"> </td>
+                <td id="s21"> </td>
+                <td id="s35"> </td>
+                <td id="s49"> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    8<br>
+                    15:10<br>
+                    |<br>
+                    16:00<br>
+                    <br>
+                </td>
+                <td id="s8"> </td>
+                <td id="s22"> </td>
+                <td id="s36"> </td>
+                <td id="s50"> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    9<br>
+                    16:10<br>
+                    |<br>
+                    17:00<br>
+                    <br>
+                </td>
+                <td id="s9"> </td>
+                <td id="s23"> </td>
+                <td id="s37"> </td>
+                <td id="s51"> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    10<br>
+                    17:10<br>
+                    |<br>
+                    18:00<br>
+                    <br>
+                </td>
+                <td id="s10"> </td>
+                <td id="s24"> </td>
+                <td id="s38"> </td>
+                <td id="s52"> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    11<br>
+                    18:30<br>
+                    |<br>
+                    19:20<br>
+                    <br>
+                </td>
+                <td id="s11"> </td>
+                <td id="s25"> </td>
+                <td id="s39"> </td>
+                <td id="s53"> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    12<br>
+                    19:25<br>
+                    |<br>
+                    20:15<br>
+                    <br>
+                </td>
+                <td id="s12"> </td>
+                <td id="s26"> </td>
+                <td id="s40"> </td>
+                <td id="s54"> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    13<br>
+                    20:20<br>
+                    |<br>
+                    21:15<br>
+                    <br>
+                </td>
+                <td id="s13"> </td>
+                <td id="s27"> </td>
+                <td id="s41"> </td>
+                <td id="s55"> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    14<br>
+                    21:20<br>
+                    |<br>
+                    22:10<br>
+                    <br>
+                </td>
+                <td id="s14"> </td>
+                <td id="s28"> </td>
+                <td id="s42"> </td>
+                <td id="s56"> </td>
+                <td> </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

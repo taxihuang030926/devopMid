@@ -1,4 +1,4 @@
-CREATE TABLE Enrolled_Table{
+CREATE TABLE Enrolled_Table(
     S_ID VARCHAR(8),
     S1 INT,
     S2 INT,
@@ -69,5 +69,5 @@ CREATE TABLE Enrolled_Table{
     S67 INT,
     S68 INT,
     S69 INT,
-    S70 INT,
-}
+    S70 INT
+);
