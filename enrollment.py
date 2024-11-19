@@ -116,4 +116,3 @@ def add_course(S_ID,Course_ID):
         update_tl_Credit(S_ID, Course_ID)
         
         return True,"加選成功"
-

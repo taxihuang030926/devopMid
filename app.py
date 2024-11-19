@@ -10,11 +10,19 @@ import sys
 app = Flask(__name__)
 app.secret_key = b'5aBMRhcy'
 
-db = mc.connect(host="0.0.0.0", port=3306, user="admint", password="12341234", database="devopMid")
+db = mc.connect(host="localhost", port=3306, user="admint", password="12341234", database="devopMid")
 cursor = db.cursor()
 
 username = ""
 password = ""
+
+def checkEnrolled(S_ID, Course_ID, db):
+    enrolledtable = fetchEnrolledTable(S_ID, db)
+    for i in range(1, 71):
+        if int(enrolledtable[i]) == Course_ID:
+            return True
+    
+    return False
 
 # login 
 @app.route('/')
@@ -48,7 +56,16 @@ def dashboard():
 def handle_course():
     course_id = request.form['course_id']
     S_ID = session.get('username') 
-    # if(Search.searchCourse(db, course_id)):
+    if(fetchCourseData(course_id, db)):
+        if(fetchEnrolledTable(S_ID, db)):
+            # check if the course is already enrolled -> drop
+            if(Enrollment.checkEnrolled(S_ID, course_id, db)):
+                Drop.dropCourse(S_ID, course_id, db)
+                flash('成功退選')
+            # check if the course is not enrolled -> enroll
+    
+    else:
+        flash('找不到課程')
 
     return render_template('dashboard.html', usernameKept=session['username'])
     
