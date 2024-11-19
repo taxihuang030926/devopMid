@@ -10,8 +10,19 @@ def index():
         return redirect(url_for('dashboard'))
     return render_template('index.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        if login1(username, password):
+            session['username'] = username
+            flash('登入成功', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('登入失敗，請檢查您的 NID 和密碼', 'danger')
+            return redirect(url_for('login'))
     return render_template('login.html')
 
 @app.route('/api', methods=['POST'])
