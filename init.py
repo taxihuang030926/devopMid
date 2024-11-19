@@ -1,3 +1,5 @@
+import mysql.connector as mc
+
 class Students:
     def __init__(self, S_ID, Name, Ttl_Credit, S_pwd, dept, Grade, Class):
         self.sid = S_ID
@@ -16,7 +18,7 @@ class Courses:
         self.prereq = prereq
         self.classNum = Class
         self.instructor = Instructor
-        self.Credit = Course_Credit
+        self.credit = Course_Credit
 
 class Course_Session:
     def __init__(self, Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom):
@@ -91,9 +93,10 @@ def fetchCourseSession(C_ID, db):
     return session_list 
 
 def fetchEnrolledTable(S_ID, connectServer):
+    # print("fetchEnrolledTable")
     cur = connectServer.cursor()
     cur.execute("SELECT * FROM Enrolled_Table WHERE S_ID=%s;",(S_ID,))
-    results = cur.fetchall()
+    results = cur.fetchone()
 
     enrolledtable = EnrolledTable(S_ID=results[0], S1=results[1], S2=results[2], S3=results[3], S4=results[4], S5=results[5],
                                   S6=results[6], S7=results[7], S8=results[8], S9=results[9], S10=results[10],
@@ -110,6 +113,29 @@ def fetchEnrolledTable(S_ID, connectServer):
                                   S61=results[61], S62=results[62], S63=results[63], S64=results[64], S65=results[65],
                                   S66=results[66], S67=results[67], S68=results[68], S69=results[69], S70=results[70])
 
-    
     cur.close()
     return enrolledtable
+
+# TODO: 一開始登入時，將學生的必修課程導入enrolledtable，並將學分加入
+def importPrereqCourse(S_ID, db):
+    cur = db.cursor()
+    cur.execute("SELECT * FROM Student WHERE S_ID=%s;", (S_ID,))
+    result = cur.fetchone()
+    grade = result[5]
+    classNum = result[6]
+
+    prereqlist = []
+    cur.execute("SELECT Course_ID FROM Courses WHERE Grade=%s AND Class=%s AND Prereq=1;", (grade, classNum))
+    result = cur.fetchone()
+    for i in result:
+        prereqlist.append(i[0])
+
+    for prereq in prereqlist:
+        cur.execute()
+        results = cur.fetchall()
+    for result in results:
+        time = result[0]
+        cur.execute("UPDATE Enrolled_Table SET S%s=%s WHERE S_ID=%s AND S%s=0;", (time, prereq, 'D1149782', time))
+        db.commit()
+
+    cur.close()
