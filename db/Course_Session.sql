@@ -24,11 +24,11 @@ insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Se
 insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom) values("1323-2", 1323, "Wednesday", 7, 35, "資電234");
 insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom) values("1323-3", 1323, "Wednesday", 8, 36, "資電234");
 
-insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom) values("2911-1", 1323, "Friday", 6, 62, "語文202");
-insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom) values("2911-2", 1323, "Friday", 7, 63, "語文202");
-
 insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom) values("3026-1", 1323, "Friday", 4, 60, "語文202");
 insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom) values("3026-2", 1323, "Friday", 5, 61, "語文202");
 
 insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom) values("2984-1", 2984, "Wednesday", 6, 34, "人言507");
 insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom) values("2984-2", 2984, "Wednesday", 7, 35, "人言507");
+
+insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom) values("2911-1", 2911, "Friday", 6, 62, "人言507");
+insert into Course_Session(Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom) values("2911-2", 2911, "Friday", 7, 63, "人言507");
