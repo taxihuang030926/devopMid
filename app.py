@@ -9,7 +9,7 @@ import sys
 app = Flask(__name__)
 app.secret_key = b'5aBMRhcy'
 
-db = mc.connect(host="0.0.0.0", port=3306, user="admint", password="12341234", database="devopMid")
+db = mc.connect(host="localhost", port=3306, user="admint", password="12341234", database="devopMid")
 cursor = db.cursor()
 
 username = ""
