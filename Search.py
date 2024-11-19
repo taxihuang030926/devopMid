@@ -28,3 +28,10 @@ def searchEnrolled(db, S_ID):
     result = cursor.fetchone()
     cursor.close()
     return result
+
+def searchStudentClass(db, S_ID):
+    cursor = db.cursor()
+    cursor.execute("SELECT Class FROM Student WHERE S_ID=%s;", (S_ID,))
+    result = cursor.fetchone()
+    cursor.close()
+    return result[0] if result else None
