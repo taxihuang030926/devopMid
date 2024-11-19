@@ -9,27 +9,38 @@ import sys
 app = Flask(__name__)
 app.secret_key = b'5aBMRhcy'
 
+
 db = mc.connect(host="localhost", port=3306, user="admint", password="12341234", database="mid")
 cursor = db.cursor()
+print("Connected to database")
 
 username = ""
 password = ""
-
-def checkEnrolled(S_ID, Course_ID, db):
-    enrolledtable = fetchEnrolledTable(S_ID, db)
-    for i in range(1, 71):
-        if int(enrolledtable[i]) == Course_ID:
-            return True
-    
-    return False
 
 # login 
 @app.route('/')
 def index():
     if 'username' in session:
-        render_template('dashboard.html', usernameKept=session['username'])
+        print("session exists")
+        enrolledtable = fetchEnrolledTable(session['username'], db)
+        render_template('dashboard.html', usernameKept=session['username'],
+                        s1=enrolledtable.S1, s2=enrolledtable.S2, s3=enrolledtable.S3, s4=enrolledtable.S4, s5=enrolledtable.S5,
+                        s6=enrolledtable.S6, s7=enrolledtable.S7, s8=enrolledtable.S8, s9=enrolledtable.S9, s10=enrolledtable.S10,
+                        s11=enrolledtable.S11, s12=enrolledtable.S12, s13=enrolledtable.S13, s14=enrolledtable.S14, s15=enrolledtable.S15,
+                        s16=enrolledtable.S16, s17=enrolledtable.S17, s18=enrolledtable.S18, s19=enrolledtable.S19, s20=enrolledtable.S20,
+                        s21=enrolledtable.S21, s22=enrolledtable.S22, s23=enrolledtable.S23, s24=enrolledtable.S24, s25=enrolledtable.S25,
+                        s26=enrolledtable.S26, s27=enrolledtable.S27, s28=enrolledtable.S28, s29=enrolledtable.S29, s30=enrolledtable.S30,
+                        s31=enrolledtable.S31, s32=enrolledtable.S32, s33=enrolledtable.S33, s34=enrolledtable.S34, s35=enrolledtable.S35,
+                        s36=enrolledtable.S36, s37=enrolledtable.S37, s38=enrolledtable.S38, s39=enrolledtable.S39, s40=enrolledtable.S40,
+                        s41=enrolledtable.S41, s42=enrolledtable.S42, s43=enrolledtable.S43, s44=enrolledtable.S44, s45=enrolledtable.S45,
+                        s46=enrolledtable.S46, s47=enrolledtable.S47, s48=enrolledtable.S48, s49=enrolledtable.S49, s50=enrolledtable.S50,
+                        s51=enrolledtable.S51, s52=enrolledtable.S52, s53=enrolledtable.S53, s54=enrolledtable.S54, s55=enrolledtable.S55,
+                        s56=enrolledtable.S56, s57=enrolledtable.S57, s58=enrolledtable.S58, s59=enrolledtable.S59, s60=enrolledtable.S60,
+                        s61=enrolledtable.S61, s62=enrolledtable.S62, s63=enrolledtable.S63, s64=enrolledtable.S64, s65=enrolledtable.S65,
+                        s66=enrolledtable.S66, s67=enrolledtable.S67, s68=enrolledtable.S68, s69=enrolledtable.S69, s70=enrolledtable.S70)
         return redirect(url_for('dashboard'))
     else:
+        print("session not exists")
         return render_template('index.html')
 
 @app.route('/login', methods=['GET','POST'])
@@ -40,8 +51,23 @@ def login():
     if(Search.searchUser(db, username, password)):
         S_ID = student_data[0]
         session['username'] = username
-        autoEnrollCourses(S_ID, db)
-        render_template('dashboard.html', usernameKept=session['username'])
+        enrolledtable = fetchEnrolledTable(session['username'], db)
+        render_template('dashboard.html', usernameKept=session['username'],
+                        s1=enrolledtable.S1, s2=enrolledtable.S2, s3=enrolledtable.S3, s4=enrolledtable.S4, s5=enrolledtable.S5,
+                        s6=enrolledtable.S6, s7=enrolledtable.S7, s8=enrolledtable.S8, s9=enrolledtable.S9, s10=enrolledtable.S10,
+                        s11=enrolledtable.S11, s12=enrolledtable.S12, s13=enrolledtable.S13, s14=enrolledtable.S14, s15=enrolledtable.S15,
+                        s16=enrolledtable.S16, s17=enrolledtable.S17, s18=enrolledtable.S18, s19=enrolledtable.S19, s20=enrolledtable.S20,
+                        s21=enrolledtable.S21, s22=enrolledtable.S22, s23=enrolledtable.S23, s24=enrolledtable.S24, s25=enrolledtable.S25,
+                        s26=enrolledtable.S26, s27=enrolledtable.S27, s28=enrolledtable.S28, s29=enrolledtable.S29, s30=enrolledtable.S30,
+                        s31=enrolledtable.S31, s32=enrolledtable.S32, s33=enrolledtable.S33, s34=enrolledtable.S34, s35=enrolledtable.S35,
+                        s36=enrolledtable.S36, s37=enrolledtable.S37, s38=enrolledtable.S38, s39=enrolledtable.S39, s40=enrolledtable.S40,
+                        s41=enrolledtable.S41, s42=enrolledtable.S42, s43=enrolledtable.S43, s44=enrolledtable.S44, s45=enrolledtable.S45,
+                        s46=enrolledtable.S46, s47=enrolledtable.S47, s48=enrolledtable.S48, s49=enrolledtable.S49, s50=enrolledtable.S50,
+                        s51=enrolledtable.S51, s52=enrolledtable.S52, s53=enrolledtable.S53, s54=enrolledtable.S54, s55=enrolledtable.S55,
+                        s56=enrolledtable.S56, s57=enrolledtable.S57, s58=enrolledtable.S58, s59=enrolledtable.S59, s60=enrolledtable.S60,
+                        s61=enrolledtable.S61, s62=enrolledtable.S62, s63=enrolledtable.S63, s64=enrolledtable.S64, s65=enrolledtable.S65,
+                        s66=enrolledtable.S66, s67=enrolledtable.S67, s68=enrolledtable.S68, s69=enrolledtable.S69, s70=enrolledtable.S70)
+
         return redirect(url_for('dashboard'))
     else:
         flash('Invalid username or password')
@@ -52,24 +78,61 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     print(username)
-    return render_template('dashboard.html', usernameKept=session['username'])
+    enrolledtable = fetchEnrolledTable(session['username'], db)
+    return render_template('dashboard.html', usernameKept=session['username'],
+                           s1=enrolledtable.S1, s2=enrolledtable.S2, s3=enrolledtable.S3, s4=enrolledtable.S4, s5=enrolledtable.S5,
+                           s6=enrolledtable.S6, s7=enrolledtable.S7, s8=enrolledtable.S8, s9=enrolledtable.S9, s10=enrolledtable.S10,
+                           s11=enrolledtable.S11, s12=enrolledtable.S12, s13=enrolledtable.S13, s14=enrolledtable.S14, s15=enrolledtable.S15,
+                           s16=enrolledtable.S16, s17=enrolledtable.S17, s18=enrolledtable.S18, s19=enrolledtable.S19, s20=enrolledtable.S20,
+                           s21=enrolledtable.S21, s22=enrolledtable.S22, s23=enrolledtable.S23, s24=enrolledtable.S24, s25=enrolledtable.S25,
+                           s26=enrolledtable.S26, s27=enrolledtable.S27, s28=enrolledtable.S28, s29=enrolledtable.S29, s30=enrolledtable.S30,
+                           s31=enrolledtable.S31, s32=enrolledtable.S32, s33=enrolledtable.S33, s34=enrolledtable.S34, s35=enrolledtable.S35,
+                           s36=enrolledtable.S36, s37=enrolledtable.S37, s38=enrolledtable.S38, s39=enrolledtable.S39, s40=enrolledtable.S40,
+                           s41=enrolledtable.S41, s42=enrolledtable.S42, s43=enrolledtable.S43, s44=enrolledtable.S44, s45=enrolledtable.S45,
+                           s46=enrolledtable.S46, s47=enrolledtable.S47, s48=enrolledtable.S48, s49=enrolledtable.S49, s50=enrolledtable.S50,
+                           s51=enrolledtable.S51, s52=enrolledtable.S52, s53=enrolledtable.S53, s54=enrolledtable.S54, s55=enrolledtable.S55,
+                           s56=enrolledtable.S56, s57=enrolledtable.S57, s58=enrolledtable.S58, s59=enrolledtable.S59, s60=enrolledtable.S60,
+                           s61=enrolledtable.S61, s62=enrolledtable.S62, s63=enrolledtable.S63, s64=enrolledtable.S64, s65=enrolledtable.S65,
+                           s66=enrolledtable.S66, s67=enrolledtable.S67, s68=enrolledtable.S68, s69=enrolledtable.S69, s70=enrolledtable.S70)
 
 @app.route('/handle_course', methods=['POST'])
 def handle_course():
     course_id = request.form['course_id']
     S_ID = session.get('username') 
+    print("course_id: ", course_id)
     if(fetchCourseData(course_id, db)):
-        if(fetchEnrolledTable(S_ID, db)):
-            # check if the course is already enrolled -> drop
-            if(enrollment.checkEnrolled(S_ID, course_id, db)):
-                drop.dropCourse(S_ID, course_id, db)
-                flash('成功退選')
-            # check if the course is not enrolled -> enroll
-    
-    else:
-        flash('找不到課程')
+        print("course found")
+        # check if the course is already enrolled -> drop
+        if Enrollment.checkEnrolled(S_ID, course_id, db):
+            print("course not enrolled")
+            Enrollment.enrollCourse(S_ID, course_id, db)
+            print("course enrolled")
+        # check if the course is not enrolled -> enroll
+        else:
+            print("course already enrolled")
+            Drop.dropCourse(S_ID, course_id, db)
+            print("course dropped")
 
-    return render_template('dashboard.html', usernameKept=session['username'])
+    else:
+        print('找不到課程')
+
+    enrolledtable = fetchEnrolledTable(session['username'], db)
+    render_template('dashboard.html', usernameKept=session['username'],
+                    s1=enrolledtable.S1, s2=enrolledtable.S2, s3=enrolledtable.S3, s4=enrolledtable.S4, s5=enrolledtable.S5,
+                    s6=enrolledtable.S6, s7=enrolledtable.S7, s8=enrolledtable.S8, s9=enrolledtable.S9, s10=enrolledtable.S10,
+                    s11=enrolledtable.S11, s12=enrolledtable.S12, s13=enrolledtable.S13, s14=enrolledtable.S14, s15=enrolledtable.S15,
+                    s16=enrolledtable.S16, s17=enrolledtable.S17, s18=enrolledtable.S18, s19=enrolledtable.S19, s20=enrolledtable.S20,
+                    s21=enrolledtable.S21, s22=enrolledtable.S22, s23=enrolledtable.S23, s24=enrolledtable.S24, s25=enrolledtable.S25,
+                    s26=enrolledtable.S26, s27=enrolledtable.S27, s28=enrolledtable.S28, s29=enrolledtable.S29, s30=enrolledtable.S30,
+                    s31=enrolledtable.S31, s32=enrolledtable.S32, s33=enrolledtable.S33, s34=enrolledtable.S34, s35=enrolledtable.S35,
+                    s36=enrolledtable.S36, s37=enrolledtable.S37, s38=enrolledtable.S38, s39=enrolledtable.S39, s40=enrolledtable.S40,
+                    s41=enrolledtable.S41, s42=enrolledtable.S42, s43=enrolledtable.S43, s44=enrolledtable.S44, s45=enrolledtable.S45,
+                    s46=enrolledtable.S46, s47=enrolledtable.S47, s48=enrolledtable.S48, s49=enrolledtable.S49, s50=enrolledtable.S50,
+                    s51=enrolledtable.S51, s52=enrolledtable.S52, s53=enrolledtable.S53, s54=enrolledtable.S54, s55=enrolledtable.S55,
+                    s56=enrolledtable.S56, s57=enrolledtable.S57, s58=enrolledtable.S58, s59=enrolledtable.S59, s60=enrolledtable.S60,
+                    s61=enrolledtable.S61, s62=enrolledtable.S62, s63=enrolledtable.S63, s64=enrolledtable.S64, s65=enrolledtable.S65,
+                    s66=enrolledtable.S66, s67=enrolledtable.S67, s68=enrolledtable.S68, s69=enrolledtable.S69, s70=enrolledtable.S70)
+    return redirect(url_for('dashboard'))
     
 
 @app.route('/logout')
@@ -81,71 +144,5 @@ def logout():
     render_template('index.html')
     return redirect(url_for('index'))
 
-def autoEnrollCourses(S_ID, db):
-    # 查詢學生班級
-    student_class = Search.searchStudentClass(db, S_ID)
-
-    if student_class:
-        # 查詢該班級的所有必修課程
-        cursor = db.cursor()
-        query = """
-        SELECT Course_ID 
-        FROM Courses 
-        WHERE Class = %s AND prereq != 0
-        """
-        cursor.execute(query, (student_class,))
-        mandatory_courses = [row[0] for row in cursor.fetchall()]
-        cursor.close()
-
-        # 取得學生的選課記錄
-        enrolled_courses = Search.searchEnrolled(db, S_ID)  # 假設此函式會返回學生選修的課程 ID 列表
-
-        # 取得每門課程的上課時間
-        for course_id in mandatory_courses:
-            if course_id not in enrolled_courses:  # 檢查學生是否已選修該課程
-                # 查詢該課程的上課時間
-                cursor = db.cursor()
-                cursor.execute("SELECT Session_Day, Session_RTime, Session_Time FROM Course_Session WHERE Course_ID = %s;", (course_id,))
-                course_sessions = cursor.fetchall()
-                cursor.close()
-
-                # 檢查是否有時間衝突
-                conflict_found = False
-                for session_day, session_rtime, session_time in course_sessions:
-                    for i in range(1, 71):  # 假設最多有70門課
-                        enrolled_course_id = enrolled_courses[i]
-                        if enrolled_course_id != 0:  # 有課程
-                            # 查詢已選課程的上課時間
-                            cursor = db.cursor()
-                            cursor.execute("SELECT Session_Day, Session_RTime, Session_Time FROM Course_Session WHERE Course_ID = %s;", (enrolled_course_id,))
-                            enrolled_course_sessions = cursor.fetchall()
-                            cursor.close()
-
-                            # 檢查時間是否衝突
-                            for enrolled_session_day, enrolled_session_rtime, enrolled_session_time in enrolled_course_sessions:
-                                if session_day == enrolled_session_day and session_rtime == enrolled_session_rtime:
-                                    conflict_found = True
-                                    break
-                        if conflict_found:
-                            break
-                    if conflict_found:
-                        break
-
-                # 如果沒有時間衝突，加入課程
-                if not conflict_found:
-                    for i in range(1, 71):  # 假設最多有70門課
-                        if enrolled_courses[i] == 0:  # 空位
-                            update_query = f"UPDATE Enrolled_Table SET S{i} = %s WHERE S_ID = %s"
-                            cursor.execute(update_query, (course_id, S_ID))
-                            db.commit()  # 提交更新
-                            flash(f'已自動為你選修課程 {course_id}')
-                            break
-                else:
-                    flash(f'課程 {course_id} 與其他選課時間衝突，無法選課！')
-        flash('必修課程自動選修完成！')
-
-
-
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8888)
