@@ -7,15 +7,8 @@
 </head>
 <body>
     <h1>選課系統</h1>
-    <h2>歡迎回來，{{ usernameKept }}</h2>
-    <a href="{{ url_for('logout') }}">登出</a>
-    <div>
-        <form action="{{ url_for('handle_course') }}" method="post">
-            <label for="course_id">課程代碼: </label>
-            <input type="text" id="course_id" name="course_id" required>
-            <button type="submit">加/退選</button>
-        </form>
-    </div>
+    <h2>歡迎回來，{{ username }}</h2>
+    <a href="{{ url_for('index') }}">登出</a>
     <div class="container">
         <table>
             <tr>
@@ -35,11 +28,11 @@
                     09:00<br>
                     <br>
                 </td>
-                <td id="s1"> </td>
-                <td id="s15"> </td>
-                <td id="s29"> </td>
-                <td id="s43"> </td>
-                <td id="s57"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
             </tr>
             <tr>
                 <td>
@@ -50,11 +43,11 @@
                     10:00<br>
                     <br>
                 </td>
-                <td id="s2"> </td>
-                <td id="s16"> </td>
-                <td id="s30"> </td>
-                <td id="s44"> </td>
-                <td id="s58"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
             </tr>
             <tr>
                 <td>
@@ -65,11 +58,11 @@
                     11:00<br>
                     <br>
                 </td>
-                <td id="s3"> </td>
-                <td id="s17"> </td>
-                <td id="s31"> </td>
-                <td id="s45"> </td>
-                <td id="s59"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
             </tr>
             <tr>
                 <td>
@@ -80,11 +73,11 @@
                     12:00<br>
                     <br>
                 </td>
-                <td id="s4"> </td>
-                <td id="s18"> </td>
-                <td id="s32"> </td>
-                <td id="s46"> </td>
-                <td id="s60"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
             </tr>
             <tr>
                 <td>
@@ -95,11 +88,11 @@
                     13:00<br>
                     <br>
                 </td>
-                <td id="s5"> </td>
-                <td id="s19"> </td>
-                <td id="s33"> </td>
-                <td id="s47"> </td>
-                <td id="s61"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
             </tr>
             <tr >
                 <td>
@@ -110,11 +103,11 @@
                     14:00<br>
                     <br>
                 </td>
-                <td id="s6"> </td>
-                <td id="s20"> </td>
-                <td id="s34"> </td>
-                <td id="s48"> </td>
-                <td id="s62"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
             </tr>
             <tr>
                 <td>
@@ -125,10 +118,10 @@
                     15:00<br>
                     <br>
                 </td>
-                <td id="s7"> </td>
-                <td id="s21"> </td>
-                <td id="s35"> </td>
-                <td id="s49"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
                 <td> </td>
             </tr>
             <tr>
@@ -140,10 +133,10 @@
                     16:00<br>
                     <br>
                 </td>
-                <td id="s8"> </td>
-                <td id="s22"> </td>
-                <td id="s36"> </td>
-                <td id="s50"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
                 <td> </td>
             </tr>
             <tr>
@@ -155,10 +148,10 @@
                     17:00<br>
                     <br>
                 </td>
-                <td id="s9"> </td>
-                <td id="s23"> </td>
-                <td id="s37"> </td>
-                <td id="s51"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
                 <td> </td>
             </tr>
             <tr>
@@ -170,10 +163,10 @@
                     18:00<br>
                     <br>
                 </td>
-                <td id="s10"> </td>
-                <td id="s24"> </td>
-                <td id="s38"> </td>
-                <td id="s52"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
                 <td> </td>
             </tr>
             <tr>
@@ -185,10 +178,10 @@
                     19:20<br>
                     <br>
                 </td>
-                <td id="s11"> </td>
-                <td id="s25"> </td>
-                <td id="s39"> </td>
-                <td id="s53"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
                 <td> </td>
             </tr>
             <tr>
@@ -200,10 +193,10 @@
                     20:15<br>
                     <br>
                 </td>
-                <td id="s12"> </td>
-                <td id="s26"> </td>
-                <td id="s40"> </td>
-                <td id="s54"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
                 <td> </td>
             </tr>
             <tr>
@@ -215,10 +208,10 @@
                     21:15<br>
                     <br>
                 </td>
-                <td id="s13"> </td>
-                <td id="s27"> </td>
-                <td id="s41"> </td>
-                <td id="s55"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
                 <td> </td>
             </tr>
             <tr>
@@ -230,10 +223,10 @@
                     22:10<br>
                     <br>
                 </td>
-                <td id="s14"> </td>
-                <td id="s28"> </td>
-                <td id="s42"> </td>
-                <td id="s56"> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
                 <td> </td>
             </tr>
         </table>

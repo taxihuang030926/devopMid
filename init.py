@@ -1,40 +1,41 @@
 class Students:
-    def __init__(self, S_ID, Name, Ttl_Credit, S_pwd, dept, Grade, Class):
+    def __init__(self, S_ID, Name, Ttl_Credit, S_pwd, dept):
         self.sid = S_ID
         self.name = Name
         self.credit = Ttl_Credit
         self.password = S_pwd
         self.dept = dept
-        self.grade = Grade
-        self.classNum = Class
 
 class Courses:
-    def __init__(self, Course_ID, Course_Name, dept, prereq, Class, Instructor, Course_Credit):
-        self.cid = Course_ID
-        self.name = Course_Name
-        self.dept = dept
-        self.prereq = prereq
-        self.classNum = Class
-        self.instructor = Instructor
+    def __init__(self, Course_ID, Course_Name, Course_Dept, Course_Prereq, Course_Grade, Course_Class, Course_Instructor, Course_Current_num, Course_Credit):
+        self.ID = Course_ID
+        self.Name = Course_Name
+        self.Dept = Course_Dept
+        self.Prereq = Course_Prereq
+        self.Grade = Course_Grade
+        self.Class = Course_Class
+        self.Instructor = Course_Instructor
+        self.Cur_num = Course_Current_num
         self.Credit = Course_Credit
 
 class Course_Session:
     def __init__(self, Session_ID, Course_ID, Session_Day, Session_RTime, Session_Time, Classroom):
-        self.session_id = Session_ID
-        self.Course_id = Course_ID
-        self.day = Session_Day
-        self.session_rtime = Session_RTime
-        self.session_time = Session_Time
-        self.classroom = Classroom
+        self.Session_ID = Session_ID
+        self.Course_ID = Course_ID
+        self.Session_Day = Session_Day
+        self.Session_RTime = Session_RTime
+        self.Time = Session_Time
+        self.Classroom = Classroom
 
 class EnrolledTable:
-    def __init__(self, S_ID,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,
-                 S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,
-                 S21,S22,S23,S24,S25,S26,S27,S28,S29,S30,
-                 S31,S32,S33,S34,S35,S36,S37,S38,S39,S40,
-                 S41,S42,S43,S44,S45,S46,S47,S48,S49,S50,
-                 S51,S52,S53,S54,S55,S56,S57,S58,S59,S60,
-                 S61,S62,S63,S64,S65,S66,S67,S68,S69,S70):
+    def __init__(self, S_ID,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10
+                 ,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20
+                 ,S21,S22,S23,S24,S25,S26,S27,S28,S29,S30
+                 ,S31,S32,S33,S34,S35,S36,S37,S38,S39,S40
+                 ,S41,S42,S43,S44,S45,S46,S47,S48,S49,S50
+                 ,S51,S52,S53,S54,S55,S56,S57,S58,S59,S60
+                 ,S61,S62,S63,S64,S65,S66,S67,S68,S69,S70
+                 ):
         self.S_ID = S_ID
         self.S1 =   S1; self.S2 =   S2; self.S3 =   S3; self.S4 =   S4; self.S5 =   S5
         self.S6 =   S6; self.S7 =   S7; self.S8 =   S8; self.S9 =   S9; self.S10 = S10
@@ -51,65 +52,71 @@ class EnrolledTable:
         self.S61 = S61; self.S62 = S62; self.S63 = S63; self.S64 = S64; self.S65 = S65
         self.S66 = S66; self.S67 = S67; self.S68 = S68; self.S69 = S69; self.S70 = S70
 
-def fetchStudentData(db, S_ID):
-    cur = db.cursor()
-    cur.execute("SELECT * FROM Student WHERE S_ID=%s;", (S_ID,))
+def student_data(SID, connectServer):
+    cur = connectServer.cursor()
+    cur.execute("SELECT * FROM student WHERE SID=%s;", (SID,))
     result = cur.fetchone()
     
     if result:
-        student = Students(S_ID=result[0], Name=result[1], Ttl_Credit=result[2], S_pwd=result[3], dept=result[4], Grade=result[5], Class=result[6])
+        student = Students(S_ID=result[0], Name=result[1], Ttl_Credit=result[2], S_pwd=result[3], dept=result[4])
         cur.close()
         return student
     else:
         cur.close()
         return None
 
-def fetchCourseData(C_ID, db):
-    cur = db.cursor()
-    cur.execute("SELECT * FROM Courses WHERE course_id=%s", (C_ID,))
+def courses_data(C_ID, connectServer):
+    cur = connectServer.cursor()
+    cur.execute("SELECT * FROM course WHERE course_id=%s", (C_ID,))
     result = cur.fetchone()
     
     if result:
-        course = Courses(Course_ID=result[0], Course_Name=result[1], dept=result[2], prereq=result[3], Class=result[4], Instructor=result[5], Course_Credit=result[6])
+        course = Courses(Course_ID=result[0], Course_Name=result[1], dept=result[2], Course_Description=result[3], Course_Credit=result[4])
         cur.close()
         return course
     else:
         cur.close()
         return None
     
-def fetchCourseSession(C_ID, db):
-    cur = db.cursor()
-    cur.execute("SELECT * FROM Course_Session WHERE Course_ID=%s;", (C_ID,))
+def Session(connectServer):
+    cur = connectServer.cursor()
+    cur.execute("SELECT * FROM Course_Session")
     results = cur.fetchall()
     
     session_list = []
     for result in results:
         session = Course_Session(Session_ID=result[0], Course_ID=result[1], Session_Day=result[2], Session_RTime=result[3], Session_Time=result[4], Classroom=result[5])
-        session_list.append(session)
+    session_list.append(session)
     
     cur.close()
     return session_list 
 
-def fetchEnrolledTable(S_ID, connectServer):
+def enrolledtable_data(S_ID, connectServer):
     cur = connectServer.cursor()
-    cur.execute("SELECT * FROM Enrolled_Table WHERE S_ID=%s;",(S_ID,))
+    cur.execute("SELECT * FROM Enrolledtable WHERE S_ID=%s;",(S_ID,))
     results = cur.fetchall()
+    
+    enrollment_list = []
+    for result in results:
+        enrollment = EnrolledTable(
+        S_ID=result[0], 
+        S1=result[1], S2=result[2], S3=result[3], S4=result[4], S5=result[5],
+        S6=result[6], S7=result[7], S8=result[8], S9=result[9], S10=result[10],
+        S11=result[11], S12=result[12], S13=result[13], S14=result[14], S15=result[15],
+        S16=result[16], S17=result[17], S18=result[18], S19=result[19], S20=result[20],
+        S21=result[21], S22=result[22], S23=result[23], S24=result[24], S25=result[25],
+        S26=result[26], S27=result[27], S28=result[28], S29=result[29], S30=result[30],
+        S31=result[31], S32=result[32], S33=result[33], S34=result[34], S35=result[35],
+        S36=result[36], S37=result[37], S38=result[38], S39=result[39], S40=result[40],
+        S41=result[41], S42=result[42], S43=result[43], S44=result[44], S45=result[45],
+        S46=result[46], S47=result[47], S48=result[48], S49=result[49], S50=result[50],
+        S51=result[51], S52=result[52], S53=result[53], S54=result[54], S55=result[55],
+        S56=result[56], S57=result[57], S58=result[58], S59=result[59], S60=result[60],
+        S61=result[61], S62=result[62], S63=result[63], S64=result[64], S65=result[65],
+        S66=result[66], S67=result[67], S68=result[68], S69=result[69], S70=result[70]
+    )
 
-    enrolledtable = EnrolledTable(S_ID=results[0], S1=results[1], S2=results[2], S3=results[3], S4=results[4], S5=results[5],
-                                  S6=results[6], S7=results[7], S8=results[8], S9=results[9], S10=results[10],
-                                  S11=results[11], S12=results[12], S13=results[13], S14=results[14], S15=results[15],
-                                  S16=results[16], S17=results[17], S18=results[18], S19=results[19], S20=results[20],
-                                  S21=results[21], S22=results[22], S23=results[23], S24=results[24], S25=results[25],
-                                  S26=results[26], S27=results[27], S28=results[28], S29=results[29], S30=results[30],
-                                  S31=results[31], S32=results[32], S33=results[33], S34=results[34], S35=results[35],
-                                  S36=results[36], S37=results[37], S38=results[38], S39=results[39], S40=results[40],
-                                  S41=results[41], S42=results[42], S43=results[43], S44=results[44], S45=results[45],
-                                  S46=results[46], S47=results[47], S48=results[48], S49=results[49], S50=results[50],
-                                  S51=results[51], S52=results[52], S53=results[53], S54=results[54], S55=results[55],
-                                  S56=results[56], S57=results[57], S58=results[58], S59=results[59], S60=results[60],
-                                  S61=results[61], S62=results[62], S63=results[63], S64=results[64], S65=results[65],
-                                  S66=results[66], S67=results[67], S68=results[68], S69=results[69], S70=results[70])
-
+        enrollment_list.append(enrollment)
     
     cur.close()
-    return enrolledtable
+    return enrollment_list
