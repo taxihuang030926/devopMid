@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from flask import Flask, request, jsonify, render_template, url_for, redirect, session, flash
 import mysql
 import MySQLdb
@@ -5,6 +6,9 @@ import mysql.connector as mc
 import Search, Enrollment, Drop
 from init import fetchStudentData, fetchCourseData, fetchCourseSession, fetchEnrolledTable, fetchCourseSession
 import sys
+=======
+from flask import Flask, request, jsonify, render_template, url_for, redirect, session
+>>>>>>> 9e6ed6fe643dfcf6170a7f79fa95d50fe2ae277b
 
 app = Flask(__name__)
 app.secret_key = b'5aBMRhcy'
