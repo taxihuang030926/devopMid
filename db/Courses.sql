@@ -6,7 +6,6 @@ CREATE TABLE Courses(
     Class VARCHAR(10),
     Instructor VARCHAR(100),
     Course_Credit INT
-    
 );
 
 insert into Courses(Course_ID, Course_Name, dept, prereq, Class, Instructor, Course_Credit) values(1312, "作業系統", "資訊", 1, "三乙", "林志敏", 3);
