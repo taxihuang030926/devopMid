@@ -115,27 +115,3 @@ def fetchEnrolledTable(S_ID, connectServer):
 
     cur.close()
     return enrolledtable
-
-# TODO: 一開始登入時，將學生的必修課程導入enrolledtable，並將學分加入
-def importPrereqCourse(S_ID, db):
-    cur = db.cursor()
-    cur.execute("SELECT * FROM Student WHERE S_ID=%s;", (S_ID,))
-    result = cur.fetchone()
-    grade = result[5]
-    classNum = result[6]
-
-    prereqlist = []
-    cur.execute("SELECT Course_ID FROM Courses WHERE Grade=%s AND Class=%s AND Prereq=1;", (grade, classNum))
-    result = cur.fetchone()
-    for i in result:
-        prereqlist.append(i[0])
-
-    for prereq in prereqlist:
-        cur.execute()
-        results = cur.fetchall()
-    for result in results:
-        time = result[0]
-        cur.execute("UPDATE Enrolled_Table SET S%s=%s WHERE S_ID=%s AND S%s=0;", (time, prereq, 'D1149782', time))
-        db.commit()
-
-    cur.close()
