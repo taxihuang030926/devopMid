@@ -17,9 +17,46 @@ print("Connected to database")
 username = ""
 password = ""
 
+def loadPrereq(db):
+    cur = db.cursor()
+    cur.execute("SELECT S_ID FROM Student")
+    result = cur.fetchall()
+    for i in result:
+        S_ID = i[0]
+        cur.execute("SELECT * FROM Student WHERE S_ID='%s';" % (S_ID))
+        result = cur.fetchone()
+
+        grade = result[5]
+        classNum = result[6]
+        print(grade, classNum)
+
+        prereqlist = []
+        cur.execute("SELECT Course_ID FROM Courses WHERE Grade=%s AND Class=%s AND Prereq=1;", (grade, classNum))
+        result = cur.fetchall()
+        for i in result:
+            prereqlist.append(i[0])
+
+        for prereq in prereqlist:
+            cur.execute("SELECT Course_Credit FROM Courses WHERE Course_ID=%s;", (prereq,))
+            result = cur.fetchone()
+            course_credit = result[0]
+            cur.execute("SELECT Ttl_Credit FROM Student WHERE S_ID='%s';" % (S_ID))
+            result = cur.fetchone()
+            student_credit = result[0]
+            student_credit += course_credit
+            cur.execute("UPDATE Student SET Ttl_Credit=%s WHERE S_ID='%s';" % (student_credit, S_ID))
+            cur.execute("SELECT Session_Time FROM Course_Session WHERE Course_ID=%s;" % (prereq,))
+            results = cur.fetchall()
+            for result in results:
+                time = result[0]
+
+                cur.execute("UPDATE Enrolled_Table SET S%s=%s WHERE S_ID='%s' AND S%s=0;" % (time, prereq, S_ID, time))
+                db.commit()
+
 # login 
 @app.route('/')
 def index():
+    loadPrereq(db)
     if 'username' in session:
         print("session exists")
         enrolledtable = fetchEnrolledTable(session['username'], db)
@@ -45,9 +82,9 @@ def index():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    username = request.form.get("username",False)
-    password = request.form.get("password",False)
-    student_data = Search.searchUser(db, username, password)
+    username = request.form['username']
+    password = request.form['password']
+
     if(Search.searchUser(db, username, password)):
         S_ID = student_data[0]
         session['username'] = username
