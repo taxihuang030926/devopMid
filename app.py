@@ -2,14 +2,15 @@ from flask import Flask, request, jsonify, render_template, url_for, redirect, s
 import mysql
 import MySQLdb
 import mysql.connector as mc 
-import Search, Enrollment, Drop
+import Search, enrollment, drop
 from init import fetchStudentData, fetchCourseData, fetchCourseSession, fetchEnrolledTable, fetchCourseSession
 import sys
 
 app = Flask(__name__)
 app.secret_key = b'5aBMRhcy'
 
-db = mc.connect(host="0.0.0.0", port=3306, user="admint", password="12341234", database="devopMid")
+
+db = mc.connect(host="localhost", port=3306, user="admint", password="12341234", database="mid")
 cursor = db.cursor()
 print("Connected to database")
 
@@ -79,12 +80,13 @@ def index():
         print("session not exists")
         return render_template('index.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
-    
     username = request.form['username']
     password = request.form['password']
+
     if(Search.searchUser(db, username, password)):
+        S_ID = student_data[0]
         session['username'] = username
         enrolledtable = fetchEnrolledTable(session['username'], db)
         render_template('dashboard.html', usernameKept=session['username'],
@@ -102,6 +104,7 @@ def login():
                         s56=enrolledtable.S56, s57=enrolledtable.S57, s58=enrolledtable.S58, s59=enrolledtable.S59, s60=enrolledtable.S60,
                         s61=enrolledtable.S61, s62=enrolledtable.S62, s63=enrolledtable.S63, s64=enrolledtable.S64, s65=enrolledtable.S65,
                         s66=enrolledtable.S66, s67=enrolledtable.S67, s68=enrolledtable.S68, s69=enrolledtable.S69, s70=enrolledtable.S70)
+
         return redirect(url_for('dashboard'))
     else:
         flash('Invalid username or password')
@@ -146,6 +149,7 @@ def handle_course():
             print("course already enrolled")
             Drop.dropCourse(S_ID, course_id, db)
             print("course dropped")
+
     else:
         print('找不到課程')
 
@@ -176,7 +180,6 @@ def logout():
     print("session killed")
     render_template('index.html')
     return redirect(url_for('index'))
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=8888)
